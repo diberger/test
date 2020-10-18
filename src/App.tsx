@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {FunctionComponent, useEffect, useState} from 'react';
 import './App.css';
+import {Sidebar} from './components/sidebar';
+import './scss/resume.scss'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {IRoute, routes} from "./utils/routes";
+import ScrollComponent from "./components/ScrollComponent";
+import {CSSTransition, TransitionGroup} from "react-transition-group";
+
+const App: FunctionComponent = () => {
+    const routesSorted: IRoute[] = [...routes].sort((a: any, b: any) => a.isMain ? 1 : 0)
+
+
+    return (
+        <Router>
+            <Sidebar/>
+            <ScrollComponent routesSorted={routesSorted}/>
+        </Router>
+    );
 }
 
 export default App;
